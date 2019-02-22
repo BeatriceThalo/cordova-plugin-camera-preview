@@ -681,6 +681,7 @@ public class CameraPreview extends CordovaPlugin implements CameraActivity.Camer
     // int computedY = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, y, metrics);
 
     // fragment.setRectPosition(computedX, computedY);
+    fragment.setRectPosition(300, 300);
 
     callbackContext.success();
     return true;
