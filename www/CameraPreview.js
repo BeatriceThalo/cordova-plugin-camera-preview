@@ -93,6 +93,14 @@ CameraPreview.getHorizontalFOV = function(onSuccess, onError) {
     exec(onSuccess, onError, PLUGIN_NAME, "getHorizontalFOV", []);
 };
 
+CameraPreview.setPreviewPosition = function(origin, onSuccess, onError) {
+    origin = origin || {};
+    origin.x = origin.x || 0;
+    origin.y = origin.y || 0;
+
+    exec(onSuccess, onError, PLUGIN_NAME, "setPreviewPosition", [origin.x, origin.y]);
+};
+
 CameraPreview.setPreviewSize = function(dimensions, onSuccess, onError) {
     dimensions = dimensions || {};
     dimensions.width = dimensions.width || window.screen.width;
