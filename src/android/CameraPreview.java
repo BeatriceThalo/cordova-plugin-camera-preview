@@ -235,7 +235,7 @@ public class CameraPreview extends CordovaPlugin implements CameraActivity.Camer
     return true;
   }
 
-    private boolean startCamera(int x, int y, int width, int height, String defaultCamera, Boolean tapToTakePicture, Boolean dragEnabled, final Boolean toBack, String alpha, boolean tapFocus, boolean disableExifHeaderStripping, boolean storeToFile, CallbackContext callbackContext) {
+  private boolean startCamera(int x, int y, int width, int height, String defaultCamera, Boolean tapToTakePicture, Boolean dragEnabled, final Boolean toBack, String alpha, boolean tapFocus, boolean disableExifHeaderStripping, boolean storeToFile, CallbackContext callbackContext) {
     Log.d(TAG, "start camera action");
     if (fragment != null) {
       callbackContext.error("Camera already started");
@@ -367,25 +367,25 @@ public class CameraPreview extends CordovaPlugin implements CameraActivity.Camer
   }
 
   private boolean getSupportedColorEffects(CallbackContext callbackContext) {
-      if(this.hasCamera(callbackContext) == false){
-        return true;
-      }
-
-      Camera camera = fragment.getCamera();
-      Camera.Parameters params = camera.getParameters();
-      List<String> supportedColors;
-      supportedColors = params.getSupportedColorEffects();
-      JSONArray jsonColorEffects = new JSONArray();
-
-      if (supportedColors != null) {
-        for (int i=0; i<supportedColors.size(); i++) {
-            jsonColorEffects.put(new String(supportedColors.get(i)));
-        }
-      }
-
-      callbackContext.success(jsonColorEffects);
+    if(this.hasCamera(callbackContext) == false){
       return true;
     }
+
+    Camera camera = fragment.getCamera();
+    Camera.Parameters params = camera.getParameters();
+    List<String> supportedColors;
+    supportedColors = params.getSupportedColorEffects();
+    JSONArray jsonColorEffects = new JSONArray();
+
+    if (supportedColors != null) {
+      for (int i=0; i<supportedColors.size(); i++) {
+          jsonColorEffects.put(new String(supportedColors.get(i)));
+      }
+    }
+
+    callbackContext.success(jsonColorEffects);
+    return true;
+  }
 
   private boolean getExposureModes(CallbackContext callbackContext) {
     if(this.hasCamera(callbackContext) == false){
@@ -488,7 +488,7 @@ public class CameraPreview extends CordovaPlugin implements CameraActivity.Camer
 
       callbackContext.success(exposureCompensation);
     }
-  return true;
+    return true;
   }
 
   private boolean getExposureCompensationRange(CallbackContext callbackContext) {
@@ -619,21 +619,20 @@ public class CameraPreview extends CordovaPlugin implements CameraActivity.Camer
     return true;
   }
 
- private boolean getHorizontalFOV(CallbackContext callbackContext) {
+  private boolean getHorizontalFOV(CallbackContext callbackContext) {
     if(this.hasCamera(callbackContext) == false){
       return true;
     }
 
-	Camera camera = fragment.getCamera();
-	Camera.Parameters params = camera.getParameters();
+    Camera camera = fragment.getCamera();
+    Camera.Parameters params = camera.getParameters();
 
-	float horizontalViewAngle = params.getHorizontalViewAngle();
+    float horizontalViewAngle = params.getHorizontalViewAngle();
 
-	callbackContext.success(String.valueOf(horizontalViewAngle));
+    callbackContext.success(String.valueOf(horizontalViewAngle));
 
-	return true;
+    return true;
   }
-
 
   private boolean getZoom(CallbackContext callbackContext) {
     if(this.hasCamera(callbackContext) == false){
@@ -705,7 +704,7 @@ public class CameraPreview extends CordovaPlugin implements CameraActivity.Camer
     return true;
   }
 
-private boolean getSupportedFlashModes(CallbackContext callbackContext) {
+  private boolean getSupportedFlashModes(CallbackContext callbackContext) {
     if(this.hasCamera(callbackContext) == false){
       return true;
     }
@@ -726,7 +725,7 @@ private boolean getSupportedFlashModes(CallbackContext callbackContext) {
     return true;
   }
 
-private boolean getSupportedFocusModes(CallbackContext callbackContext) {
+  private boolean getSupportedFocusModes(CallbackContext callbackContext) {
     if(this.hasCamera(callbackContext) == false){
       return true;
     }
@@ -768,7 +767,7 @@ private boolean getSupportedFocusModes(CallbackContext callbackContext) {
     return true;
   }
 
-    private boolean setFocusMode(String focusMode, CallbackContext callbackContext) {
+  private boolean setFocusMode(String focusMode, CallbackContext callbackContext) {
     if(this.hasCamera(callbackContext) == false){
       return true;
     }
@@ -957,50 +956,50 @@ private boolean getSupportedFocusModes(CallbackContext callbackContext) {
 
     JSONObject data = new JSONObject();
     JSONArray cameraCharacteristicsArray = new JSONArray();
-	
+  
     // Get the CameraManager
     CameraManager cManager = (CameraManager) this.cordova.getActivity().getApplicationContext().getSystemService(Context.CAMERA_SERVICE);
-	
+  
     try {
       for (String cameraId : cManager.getCameraIdList()) {
         CameraCharacteristics characteristics = cManager.getCameraCharacteristics(cameraId);
-	
-	JSONObject cameraData = new JSONObject();
-	
-	// INFO_SUPPORTED_HARDWARE_LEVEL
-	Integer supportLevel = characteristics.get(CameraCharacteristics.INFO_SUPPORTED_HARDWARE_LEVEL);
-	cameraData.put("INFO_SUPPORTED_HARDWARE_LEVEL", supportLevel);
-	
-	// LENS_FACING
-	Integer lensFacing = characteristics.get(CameraCharacteristics.LENS_FACING);
-	cameraData.put("LENS_FACING", lensFacing);
-	
-	// SENSOR_INFO_PHYSICAL_SIZE
-	SizeF sensorInfoPhysicalSize = characteristics.get(CameraCharacteristics.SENSOR_INFO_PHYSICAL_SIZE);
-	cameraData.put("SENSOR_INFO_PHYSICAL_SIZE_WIDTH", new Double(sensorInfoPhysicalSize.getWidth()));
-	cameraData.put("SENSOR_INFO_PHYSICAL_SIZE_HEIGHT", new Double(sensorInfoPhysicalSize.getHeight()));
-	
-	// SENSOR_INFO_PIXEL_ARRAY_SIZE
-	Size sensorInfoPixelSize = characteristics.get(CameraCharacteristics.SENSOR_INFO_PIXEL_ARRAY_SIZE);
-	cameraData.put("SENSOR_INFO_PIXEL_ARRAY_SIZE_WIDTH", new Integer(sensorInfoPixelSize.getWidth()));
-	cameraData.put("SENSOR_INFO_PIXEL_ARRAY_SIZE_HEIGHT", new Integer(sensorInfoPixelSize.getHeight()));
-	
-	// LENS_INFO_AVAILABLE_FOCAL_LENGTHS
-	float[] focalLengths = characteristics.get(CameraCharacteristics.LENS_INFO_AVAILABLE_FOCAL_LENGTHS);
-	JSONArray focalLengthsArray = new JSONArray();
-	for (int focusId=0; focusId<focalLengths.length; focusId++) {
-	  JSONObject focalLengthsData = new JSONObject();
-	  focalLengthsData.put("FOCAL_LENGTH", new Double(focalLengths[focusId]));
-	  focalLengthsArray.put(focalLengthsData);
-	}
-	cameraData.put("LENS_INFO_AVAILABLE_FOCAL_LENGTHS", focalLengthsArray);
-	
-	// add camera data to result list
-	cameraCharacteristicsArray.put(cameraData);
+  
+        JSONObject cameraData = new JSONObject();
+        
+        // INFO_SUPPORTED_HARDWARE_LEVEL
+        Integer supportLevel = characteristics.get(CameraCharacteristics.INFO_SUPPORTED_HARDWARE_LEVEL);
+        cameraData.put("INFO_SUPPORTED_HARDWARE_LEVEL", supportLevel);
+        
+        // LENS_FACING
+        Integer lensFacing = characteristics.get(CameraCharacteristics.LENS_FACING);
+        cameraData.put("LENS_FACING", lensFacing);
+        
+        // SENSOR_INFO_PHYSICAL_SIZE
+        SizeF sensorInfoPhysicalSize = characteristics.get(CameraCharacteristics.SENSOR_INFO_PHYSICAL_SIZE);
+        cameraData.put("SENSOR_INFO_PHYSICAL_SIZE_WIDTH", new Double(sensorInfoPhysicalSize.getWidth()));
+        cameraData.put("SENSOR_INFO_PHYSICAL_SIZE_HEIGHT", new Double(sensorInfoPhysicalSize.getHeight()));
+        
+        // SENSOR_INFO_PIXEL_ARRAY_SIZE
+        Size sensorInfoPixelSize = characteristics.get(CameraCharacteristics.SENSOR_INFO_PIXEL_ARRAY_SIZE);
+        cameraData.put("SENSOR_INFO_PIXEL_ARRAY_SIZE_WIDTH", new Integer(sensorInfoPixelSize.getWidth()));
+        cameraData.put("SENSOR_INFO_PIXEL_ARRAY_SIZE_HEIGHT", new Integer(sensorInfoPixelSize.getHeight()));
+        
+        // LENS_INFO_AVAILABLE_FOCAL_LENGTHS
+        float[] focalLengths = characteristics.get(CameraCharacteristics.LENS_INFO_AVAILABLE_FOCAL_LENGTHS);
+        JSONArray focalLengthsArray = new JSONArray();
+        for (int focusId=0; focusId<focalLengths.length; focusId++) {
+          JSONObject focalLengthsData = new JSONObject();
+          focalLengthsData.put("FOCAL_LENGTH", new Double(focalLengths[focusId]));
+          focalLengthsArray.put(focalLengthsData);
+        }
+        cameraData.put("LENS_INFO_AVAILABLE_FOCAL_LENGTHS", focalLengthsArray);
+        
+        // add camera data to result list
+        cameraCharacteristicsArray.put(cameraData);
       }
-		
+    
       data.put("CAMERA_CHARACTERISTICS", cameraCharacteristicsArray);
-		
+    
     } catch (CameraAccessException e) {
       Log.e(TAG, e.getMessage(), e);
     } catch (JSONException e) {
