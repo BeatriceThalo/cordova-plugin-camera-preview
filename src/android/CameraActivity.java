@@ -123,6 +123,16 @@ public class CameraActivity extends Fragment {
     frameContainerLayout.setLayoutParams(layoutParams);
   }
 
+  public void setRectSize(int width, int height){
+    this.width = width;
+    this.height = height;
+
+    FrameLayout.LayoutParams layoutParams = (FrameLayout.LayoutParams) frameContainerLayout.getLayoutParams();
+    layoutParams.width = width;
+    layoutParams.height = height;
+    frameContainerLayout.setLayoutParams(layoutParams);
+  }
+
   private void createCameraPreview(){
     if(mPreview == null) {
       setDefaultCameraId();

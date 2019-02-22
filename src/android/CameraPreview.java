@@ -691,12 +691,19 @@ public class CameraPreview extends CordovaPlugin implements CameraActivity.Camer
       return true;
     }
 
-    Camera camera = fragment.getCamera();
-    Camera.Parameters params = camera.getParameters();
+    DisplayMetrics metrics = cordova.getActivity().getResources().getDisplayMetrics();
+    // offset
+    int computedWidth = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, width, metrics);
+    int computedHeight = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, height, metrics);
 
-    params.setPreviewSize(width, height);
-    fragment.setCameraParameters(params);
-    camera.startPreview();
+    fragment.setRectSize(computedWidth, computedHeight);
+
+    // Camera camera = fragment.getCamera();
+    // Camera.Parameters params = camera.getParameters();
+
+    // params.setPreviewSize(width, height);
+    // fragment.setCameraParameters(params);
+    // camera.startPreview();
 
     callbackContext.success();
     return true;
