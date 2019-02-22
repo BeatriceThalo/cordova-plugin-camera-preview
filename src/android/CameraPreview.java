@@ -263,8 +263,7 @@ public class CameraPreview extends CordovaPlugin implements CameraActivity.Camer
     int computedWidth = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, width, metrics);
     int computedHeight = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, height, metrics);
 
-    fragment.setRectPosition(computedX, computedY);
-    fragment.setRectSize(computedWidth, computedHeight);
+    fragment.setRect(computedX, computedY, computedWidth, computedHeight);
 
     startCameraCallbackContext = callbackContext;
 
@@ -676,12 +675,12 @@ public class CameraPreview extends CordovaPlugin implements CameraActivity.Camer
       return true;
     }
 
-    DisplayMetrics metrics = cordova.getActivity().getResources().getDisplayMetrics();
+    // DisplayMetrics metrics = cordova.getActivity().getResources().getDisplayMetrics();
     // offset
-    int computedX = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, x, metrics);
-    int computedY = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, y, metrics);
+    // int computedX = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, x, metrics);
+    // int computedY = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, y, metrics);
 
-    fragment.setRectPosition(computedX, computedY);
+    // fragment.setRectPosition(computedX, computedY);
 
     callbackContext.success();
     return true;

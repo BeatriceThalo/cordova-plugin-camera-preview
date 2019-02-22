@@ -116,7 +116,9 @@ public class CameraActivity extends Fragment {
     frameContainerLayout.setLayoutParams(layoutParams);
   }
 
-  public void setRectSize(int width, int height){
+  public void setRect(int x, int y, int width, int height){
+    this.x = x;
+    this.y = y;
     this.width = width;
     this.height = height;
   }
