@@ -117,10 +117,10 @@ public class CameraActivity extends Fragment {
     // this.x = x;
     // this.y = y;
 
-    // FrameLayout.LayoutParams layoutParams = (FrameLayout.LayoutParams) frameContainerLayout.getLayoutParams();
-    // layoutParams.leftMargin = x;
-    // layoutParams.topMargin = y;
-    // frameContainerLayout.setLayoutParams(layoutParams);
+    FrameLayout.LayoutParams layoutParams = (FrameLayout.LayoutParams) frameContainerLayout.getLayoutParams();
+    layoutParams.leftMargin = x;
+    layoutParams.topMargin = y;
+    frameContainerLayout.setLayoutParams(layoutParams);
   }
 
   private void createCameraPreview(){
