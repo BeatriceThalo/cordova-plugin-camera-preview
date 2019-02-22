@@ -106,11 +106,21 @@ public class CameraActivity extends Fragment {
     return view;
   }
 
-  public void setRect(int x, int y, int width, int height){
+  public void setRectPosition(int x, int y){
     this.x = x;
     this.y = y;
+  }
+
+  public void setRectSize(int width, int height){
     this.width = width;
     this.height = height;
+  }
+
+  public void setBoxPositionAndSize(){
+    FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(width, height);
+    layoutParams.setMargins(x, y, 0, 0);
+    frameContainerLayout = (FrameLayout) view.findViewById(getResources().getIdentifier("frame_container", "id", appResourcesPackage));
+    frameContainerLayout.setLayoutParams(layoutParams);
   }
 
   private void createCameraPreview(){
@@ -118,10 +128,7 @@ public class CameraActivity extends Fragment {
       setDefaultCameraId();
 
       //set box position and size
-      FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(width, height);
-      layoutParams.setMargins(x, y, 0, 0);
-      frameContainerLayout = (FrameLayout) view.findViewById(getResources().getIdentifier("frame_container", "id", appResourcesPackage));
-      frameContainerLayout.setLayoutParams(layoutParams);
+      setBoxPositionAndSize();
 
       //video view
       mPreview = new Preview(getActivity());

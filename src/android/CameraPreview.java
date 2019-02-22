@@ -43,6 +43,7 @@ public class CameraPreview extends CordovaPlugin implements CameraActivity.Camer
   private static final String SET_FLASH_MODE_ACTION = "setFlashMode";
   private static final String START_CAMERA_ACTION = "startCamera";
   private static final String STOP_CAMERA_ACTION = "stopCamera";
+  private static final String PREVIEW_POSITION_ACTION = "setPreviewPosition";
   private static final String PREVIEW_SIZE_ACTION = "setPreviewSize";
   private static final String SWITCH_CAMERA_ACTION = "switchCamera";
   private static final String TAKE_PICTURE_ACTION = "takePicture";
@@ -112,6 +113,8 @@ public class CameraPreview extends CordovaPlugin implements CameraActivity.Camer
       return getHorizontalFOV(callbackContext);
     } else if (GET_MAX_ZOOM_ACTION.equals(action)) {
       return getMaxZoom(callbackContext);
+    } else if (PREVIEW_POSITION_ACTION.equals(action)) {
+      return setPreviewPosition(args.getInt(0), args.getInt(1), callbackContext);
     } else if (PREVIEW_SIZE_ACTION.equals(action)) {
       return setPreviewSize(args.getInt(0), args.getInt(1), callbackContext);
     } else if (SUPPORTED_FLASH_MODES_ACTION.equals(action)) {
@@ -260,7 +263,8 @@ public class CameraPreview extends CordovaPlugin implements CameraActivity.Camer
     int computedWidth = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, width, metrics);
     int computedHeight = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, height, metrics);
 
-    fragment.setRect(computedX, computedY, computedWidth, computedHeight);
+    fragment.setRectPosition(computedX, computedY);
+    fragment.setRectSize(computedWidth, computedHeight);
 
     startCameraCallbackContext = callbackContext;
 
@@ -665,6 +669,23 @@ public class CameraPreview extends CordovaPlugin implements CameraActivity.Camer
       callbackContext.error("Zoom not supported");
     }
 
+    return true;
+  }
+
+  private boolean setPreviewPosition(int x, int y, CallbackContext callbackContext) {
+    if(this.hasCamera(callbackContext) == false){
+      return true;
+    }
+
+    DisplayMetrics metrics = cordova.getActivity().getResources().getDisplayMetrics();
+    // offset
+    int computedX = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, x, metrics);
+    int computedY = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, y, metrics);
+
+    fragment.setRectPosition(computedX, computedY);
+    fragment.setBoxPositionAndSize();
+
+    callbackContext.success();
     return true;
   }
 
