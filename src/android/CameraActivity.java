@@ -114,8 +114,8 @@ public class CameraActivity extends Fragment {
   }
 
   public void setRectPosition(int x, int y){
-    // this.x = x;
-    // this.y = y;
+    this.x = x;
+    this.y = y;
 
     FrameLayout.LayoutParams layoutParams = (FrameLayout.LayoutParams) frameContainerLayout.getLayoutParams();
     layoutParams.leftMargin = x;
