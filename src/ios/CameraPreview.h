@@ -25,6 +25,7 @@
 - (void) getExposureCompensation:(CDVInvokedUrlCommand*)command;
 - (void) setExposureCompensation:(CDVInvokedUrlCommand*)command;
 - (void) getExposureCompensationRange:(CDVInvokedUrlCommand*)command;
+- (void) setPreviewPosition: (CDVInvokedUrlCommand*)command;
 - (void) setPreviewSize: (CDVInvokedUrlCommand*)command;
 - (void) switchCamera:(CDVInvokedUrlCommand*)command;
 - (void) takePicture:(CDVInvokedUrlCommand*)command;

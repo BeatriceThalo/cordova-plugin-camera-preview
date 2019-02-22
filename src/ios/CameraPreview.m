@@ -510,6 +510,32 @@
   [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
+- (void) setPreviewPosition: (CDVInvokedUrlCommand*)command {
+
+    CDVPluginResult *pluginResult;
+
+    if (self.sessionManager == nil) {
+        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"Session not started"];
+        [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+        return;
+    }
+
+    if (command.arguments.count > 1) {
+        CGFloat x = (CGFloat)[command.arguments[0] floatValue] + self.webView.frame.origin.x;
+        CGFloat y = (CGFloat)[command.arguments[1] floatValue] + self.webView.frame.origin.y;
+
+        CGRect existingRect = self.cameraRenderController.view.frame;
+
+        self.cameraRenderController.view.frame = CGRectMake(x, y, existingRect.size.width, existingRect.size.height);
+
+        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
+    } else {
+        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"Invalid number of parameters"];
+    }
+
+    [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+}
+
 - (void) setPreviewSize: (CDVInvokedUrlCommand*)command {
 
     CDVPluginResult *pluginResult;
@@ -524,7 +550,9 @@
         CGFloat width = (CGFloat)[command.arguments[0] floatValue];
         CGFloat height = (CGFloat)[command.arguments[1] floatValue];
 
-        self.cameraRenderController.view.frame = CGRectMake(0, 0, width, height);
+        CGRect existingRect = self.cameraRenderController.view.frame;
+
+        self.cameraRenderController.view.frame = CGRectMake(existingRect.origin.x, existingRect.origin.y, width, height);
 
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
     } else {
