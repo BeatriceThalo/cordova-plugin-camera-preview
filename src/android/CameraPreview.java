@@ -282,24 +282,37 @@ public class CameraPreview extends CordovaPlugin implements CameraActivity.Camer
           cordova.getActivity().addContentView(containerView, containerLayoutParams);
         }
         //display camera bellow the webview
+    Log.d(TAG, "mln Camera z:"+containerView.getTranslationZ());
+    Log.d(TAG, "mln webview z:"+((ViewGroup)webView.getView()).getTranslationZ());
+    Log.d(TAG, "mln Camera elev:"+containerView.getElevation());
+    Log.d(TAG, "mln webview elev:"+((ViewGroup)webView.getView()).getElevation());
         if(toBack){
 
           webView.getView().setBackgroundColor(0xff00ff00); // TODO use clear not green
           webViewParent = webView.getView().getParent();
           //((ViewGroup)webViewParent.getView()).setBackgroundColor(0xff000000);
           ((ViewGroup)webView.getView()).bringToFront(); // Doesn't work, camera still in front of webview
-          // ((ViewGroup)webView.getView()).invalidate(); // second part
+          // ((View)webViewParent).invalidate(); // second part
           // webView.getView().bringToFront();
           // webView.getView().invalidate();
-          ViewCompat.setTranslationZ(webView.getView(), 4.0);
+          // ViewCompat.setTranslationZ(webView.getView(), 4.0);
           // ViewCompat.setTranslationZ(webView, 4.0);
           // ViewCompat.setTranslationZ(containerView, 0.0);
+    Log.d(TAG, "mlntoBack Camera z:"+containerView.getTranslationZ());
+    Log.d(TAG, "mlntoBack webview z:"+((ViewGroup)webView.getView()).getTranslationZ());
+    Log.d(TAG, "mlntoBack Camera elev:"+containerView.getElevation());
+    Log.d(TAG, "mlntoBack webview elev:"+((ViewGroup)webView.getView()).getElevation());
+
 
         }else{
 
           //set camera back to front
           containerView.setAlpha(opacity);
           containerView.bringToFront();
+          Log.d(TAG, "mlntoFront Camera z:"+containerView.getTranslationZ());
+          Log.d(TAG, "mlntoFront webview z:"+((ViewGroup)webView.getView()).getTranslationZ());
+          Log.d(TAG, "mlntoFront Camera elev:"+containerView.getElevation());
+          Log.d(TAG, "mlntoFront webview elev:"+((ViewGroup)webView.getView()).getElevation());
 
         }
 
@@ -315,7 +328,7 @@ public class CameraPreview extends CordovaPlugin implements CameraActivity.Camer
   }
 
   public void onCameraStarted() {
-    Log.d(TAG, "Camera started");
+    Log.d(TAG, "mln Camera started");
 
     // if (fragment.toBack) {
     //   ((ViewGroup)webView.getView()).bringToFront(); // Wait until after the camera has moved itself to the front onStarting
