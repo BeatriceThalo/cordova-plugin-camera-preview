@@ -241,6 +241,7 @@ public class CameraPreview extends CordovaPlugin implements CameraActivity.Camer
       callbackContext.error("Camera already started");
       return true;
     }
+    Log.d(TAG, "mln in start camera");
 
     final float opacity = Float.parseFloat(alpha);
 
@@ -253,6 +254,7 @@ public class CameraPreview extends CordovaPlugin implements CameraActivity.Camer
     fragment.disableExifHeaderStripping = disableExifHeaderStripping;
     fragment.storeToFile = storeToFile;
     fragment.toBack = toBack;
+    Log.d(TAG, "mln toBack"+toBack);
 
     DisplayMetrics metrics = cordova.getActivity().getResources().getDisplayMetrics();
     // offset
@@ -270,6 +272,7 @@ public class CameraPreview extends CordovaPlugin implements CameraActivity.Camer
     cordova.getActivity().runOnUiThread(new Runnable() {
       @Override
       public void run() {
+        Log.d(TAG, "mln log from thread");
 
 
         //create or update the layout params for the container view
