@@ -55,8 +55,9 @@
 
       // make transparent
       self.webView.opaque = NO;
-      self.webView.backgroundColor = self.cameraRenderController.view.superview ? [UIColor blueColor] : [UIColor greenColor]; // clearColor
-      if (self.cameraRenderController.view.supervie) {
+      self.webView.backgroundColor = [UIColor greenColor]; // clearColor
+      if (self.cameraRenderController.view.superview) {
+        self.webView.backgroundColor = [UIColor blueColor];
         self.cameraRenderController.view.superview.backgroundColor = [UIColor cyanColor];
       }
 
