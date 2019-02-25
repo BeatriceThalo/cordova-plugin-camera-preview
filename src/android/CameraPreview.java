@@ -286,6 +286,7 @@ public class CameraPreview extends CordovaPlugin implements CameraActivity.Camer
 
           webView.getView().setBackgroundColor(0x00000000);
           webViewParent = webView.getView().getParent();
+          webViewParent.getView().setBackgroundColor(0x000000ff);
            ((ViewGroup)webView.getView()).bringToFront();
 
         }else{
@@ -838,6 +839,7 @@ public class CameraPreview extends CordovaPlugin implements CameraActivity.Camer
   private boolean stopCamera(CallbackContext callbackContext) {
 
     if(webViewParent != null) {
+      webViewParent.getView().setBackgroundColor(0x00000000);
       cordova.getActivity().runOnUiThread(new Runnable() {
         @Override
         public void run() {
