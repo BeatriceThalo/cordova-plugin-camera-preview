@@ -286,11 +286,9 @@ public class CameraPreview extends CordovaPlugin implements CameraActivity.Camer
 
           webView.getView().setBackgroundColor(0x00000000);
           webViewParent = webView.getView().getParent();
-          if (webViewParent != null) {
-            webView.getView().setBackgroundColor(0xff0000ff);
-          }
-          //((ViewGroup)webViewParent.getView()).setBackgroundColor(0x000000ff);
-           ((ViewGroup)webView.getView()).bringToFront();
+          //((ViewGroup)webViewParent.getView()).setBackgroundColor(0xff000000);
+          ((ViewGroup)webView.getView()).bringToFront(); // Doesn't work, camera still in front of webview
+          ((ViewGroup)webView.getView()).invalidate(); // second part
 
         }else{
 
@@ -842,7 +840,7 @@ public class CameraPreview extends CordovaPlugin implements CameraActivity.Camer
   private boolean stopCamera(CallbackContext callbackContext) {
 
     if(webViewParent != null) {
-      //((ViewGroup)webViewParent.getView()).setBackgroundColor(0x000000ff);
+      //((ViewGroup)webViewParent.getView()).setBackgroundColor(0xff000000);
       cordova.getActivity().runOnUiThread(new Runnable() {
         @Override
         public void run() {
