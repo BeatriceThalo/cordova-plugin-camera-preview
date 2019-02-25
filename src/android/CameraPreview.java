@@ -294,14 +294,10 @@ public class CameraPreview extends CordovaPlugin implements CameraActivity.Camer
           webView.getView().setBackgroundColor(0xff00ffff); // TODO use clear not green
           webViewParent = webView.getView().getParent();
           //((ViewGroup)webViewParent.getView()).setBackgroundColor(0xff000000);
-          // ((ViewGroup)webView.getView()).bringToFront(); // Doesn't work, camera still in front of webview
-          // ((View)webViewParent).invalidate(); // second part
-          // webView.getView().bringToFront();
-          // webView.getView().invalidate();
-          ((ViewGroup)webView.getView()).setTranslationZ(4.0f);
-          // ViewCompat.setTranslationZ(webView.getView(), 4.0);
-          // ViewCompat.setTranslationZ(webView, 4.0);
-          // ViewCompat.setTranslationZ(containerView, 0.0);
+          ((ViewGroup)webView.getView()).bringToFront(); // Doesn't work, camera still in front of webview
+          ((View)webViewParent).invalidate(); // second part
+          ((View)webViewParent).requestLayout(); // third part
+          // ((ViewGroup)webView.getView()).setTranslationZ(4.0f);
     Log.d(TAG, "mlntoBack Camera z:"+containerView.getTranslationZ());
     Log.d(TAG, "mlntoBack webview z:"+((ViewGroup)webView.getView()).getTranslationZ());
     Log.d(TAG, "mlntoBack Camera elev:"+containerView.getElevation());
@@ -333,6 +329,15 @@ public class CameraPreview extends CordovaPlugin implements CameraActivity.Camer
 
   public void onCameraStarted() {
     Log.d(TAG, "mln Camera started");
+    Log.d(TAG, "mln onStart Camera z:"+containerView.getTranslationZ());
+    Log.d(TAG, "mln onStart webview z:"+((ViewGroup)webView.getView()).getTranslationZ());
+    Log.d(TAG, "mln onStart Camera elev:"+containerView.getElevation());
+    Log.d(TAG, "mln onStart webview elev:"+((ViewGroup)webView.getView()).getElevation());
+    ((ViewGroup)webView.getView()).setTranslationZ(6.0f);
+    Log.d(TAG, "mln onStartag Camera z:"+containerView.getTranslationZ());
+    Log.d(TAG, "mln onStartag webview z:"+((ViewGroup)webView.getView()).getTranslationZ());
+    Log.d(TAG, "mln onStartag Camera elev:"+containerView.getElevation());
+    Log.d(TAG, "mln onStartag webview elev:"+((ViewGroup)webView.getView()).getElevation());
 
     // if (fragment.toBack) {
     //   ((ViewGroup)webView.getView()).bringToFront(); // Wait until after the camera has moved itself to the front onStarting
