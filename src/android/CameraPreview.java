@@ -241,7 +241,6 @@ public class CameraPreview extends CordovaPlugin implements CameraActivity.Camer
       callbackContext.error("Camera already started");
       return true;
     }
-    Log.d(TAG, "mln in start camera");
 
     final float opacity = Float.parseFloat(alpha);
 
@@ -285,21 +284,12 @@ public class CameraPreview extends CordovaPlugin implements CameraActivity.Camer
         //display camera bellow the webview
         if(toBack){
 
-          webView.getView().setBackgroundColor(0x00000000);
-
-          //fix restoring android layout when using toBack option
+          webView.getView().setBackgroundColor(0xff888000);
           webViewParent = webView.getView().getParent();
           ((ViewGroup)webViewParent).removeView(webView.getView());
           ((ViewGroup)containerView.getParent()).addView(webView.getView(), 0);
           ((ViewGroup)webView.getView()).bringToFront();
-
-          // Mln's attempt
-          // webViewParent = webView.getView().getParent();
-          // ((ViewGroup)webViewParent.getView()).setBackgroundColor(0xffff0000); // TODO use black and then clear onstop DOESNT WORK
-          // ((ViewGroup)webView.getView()).bringToFront(); // SOESNT WORK, camera still in front of webview
-          // ((ViewGroup)webViewParent).invalidate(); // second part
-          // ((ViewGroup)webViewParent).requestLayout(); // third part
-
+          ((ViewGroup)containerView.getParent()).setBackgroundColor(0xff000000);
 
         }else{
 
@@ -321,15 +311,6 @@ public class CameraPreview extends CordovaPlugin implements CameraActivity.Camer
   }
 
   public void onCameraStarted() {
-    Log.d(TAG, "mln Camera started");
-
-          // Mln's attempt
-    // if (fragment.toBack) {
-    //   ((ViewGroup)webView.getView()).bringToFront(); // Wait until after the camera has moved itself to the front onStarting
-    //   ((ViewGroup)webViewParent).invalidate(); // second part
-    //   ((ViewGroup)webViewParent).requestLayout(); // third part
-    // }
-
     PluginResult pluginResult = new PluginResult(PluginResult.Status.OK, "Camera started");
     pluginResult.setKeepCallback(true);
     startCameraCallbackContext.sendPluginResult(pluginResult);
@@ -862,6 +843,8 @@ public class CameraPreview extends CordovaPlugin implements CameraActivity.Camer
       cordova.getActivity().runOnUiThread(new Runnable() {
         @Override
         public void run() {
+          ((ViewGroup)webView.getView().getParent()).removeView(webView.getView());
+          ((ViewGroup)webViewParent).addView(webView.getView(), 0);
           ((ViewGroup)webView.getView()).bringToFront();
           webViewParent = null;
         }
