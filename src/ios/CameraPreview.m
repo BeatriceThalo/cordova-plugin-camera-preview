@@ -57,6 +57,7 @@
       self.webView.opaque = NO;
       self.webView.backgroundColor = [UIColor clearColor];
       self.cameraRenderController.view.backgroundColor = [UIColor cyanColor];
+      self.cameraRenderController.superview.backgroundColor = [UIColor magentaColor];
 
       [self.webView.superview addSubview:self.cameraRenderController.view];
       [self.webView.superview bringSubviewToFront:self.webView];
