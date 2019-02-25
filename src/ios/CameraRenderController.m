@@ -17,7 +17,7 @@
 
 - (void)loadView {
   GLKView *glkView = [[GLKView alloc] init];
-  [glkView setBackgroundColor:[UIColor cyanColor]];
+  [glkView setBackgroundColor:[UIColor blackColor]];
   [self setView:glkView];
 }
 
@@ -37,6 +37,7 @@
   }
 
   GLKView *view = (GLKView *)self.view;
+  view.backgroundColor = [UIColor cyanColor];
   view.context = self.context;
   view.drawableDepthFormat = GLKViewDrawableDepthFormat24;
   view.contentMode = UIViewContentModeScaleToFill;
