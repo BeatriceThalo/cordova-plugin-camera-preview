@@ -17,7 +17,7 @@
 
 - (void)loadView {
   GLKView *glkView = [[GLKView alloc] init];
-  [glkView setBackgroundColor:[UIColor blackColor]];
+  [glkView setBackgroundColor:[UIColor cyanColor]];
   [self setView:glkView];
 }
 
