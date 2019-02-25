@@ -27,14 +27,6 @@ CameraPreview.startCamera = function(options, onSuccess, onError) {
 
     options.previewDrag = options.previewDrag || false;
     options.toBack = options.toBack || false;
-    // if (!Array.isArray(options.backgroundColor)) {
-    //     options.backgroundColor = [1, 1, 1, 0];
-    // } else {
-    //     options.backgroundColor[0] /= 255;
-    //     options.backgroundColor[1] /= 255;
-    //     options.backgroundColor[2] /= 255;
-    //     options.backgroundColor[3] = options.backgroundColor[3] !== undefined ? options.backgroundColor[3] : 1;
-    // }
     if (typeof(options.alpha) === 'undefined') {
         options.alpha = 1;
     }

@@ -35,8 +35,7 @@
     BOOL tapToFocus = (BOOL) [command.arguments[9] boolValue];
     BOOL disableExifHeaderStripping = (BOOL) [command.arguments[10] boolValue]; // ignore Android only
     BOOL storeToFile = (BOOL) [command.arguments[11] boolValue]; // ignore Android only
-    //NSNumber *backgroundColor = command.arguments[12];
-
+    
     // Create the session manager
     self.sessionManager = [[CameraSessionManager alloc] init];
 
@@ -58,7 +57,7 @@
       self.webView.opaque = NO;
       self.webView.backgroundColor = [UIColor clearColor];
 
-      self.webView.superview.backgroundColor = [UIColor colorWithRed:1 green:1 blue:0 alpha:1];
+      self.webView.superview.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:1]; // Could pass rgba from arguments
       [self.webView.superview addSubview:self.cameraRenderController.view];
       [self.webView.superview bringSubviewToFront:self.webView];
     } else {

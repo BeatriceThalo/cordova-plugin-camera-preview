@@ -10,7 +10,6 @@ type CameraPreviewWhiteBalanceMode = 'lock'|'auto'|'continuous'|'incandescent'|'
 
 interface CameraPreviewStartCameraOptions {
  alpha?: number;
-//  backgroundColor?: number[];
  camera?: CameraPreviewCameraDirection|string;
  height?: number;
  previewDrag?: boolean;
