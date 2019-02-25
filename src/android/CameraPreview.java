@@ -329,6 +329,7 @@ public class CameraPreview extends CordovaPlugin implements CameraActivity.Camer
 
   public void onCameraStarted() {
     Log.d(TAG, "mln Camera started");
+    FrameLayout containerView = (FrameLayout)cordova.getActivity().findViewById(containerViewId);
     Log.d(TAG, "mln onStart Camera z:"+containerView.getTranslationZ());
     Log.d(TAG, "mln onStart webview z:"+((ViewGroup)webView.getView()).getTranslationZ());
     Log.d(TAG, "mln onStart Camera elev:"+containerView.getElevation());
