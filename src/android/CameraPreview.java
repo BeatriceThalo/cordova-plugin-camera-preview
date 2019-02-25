@@ -254,7 +254,6 @@ public class CameraPreview extends CordovaPlugin implements CameraActivity.Camer
     fragment.disableExifHeaderStripping = disableExifHeaderStripping;
     fragment.storeToFile = storeToFile;
     fragment.toBack = toBack;
-    Log.d(TAG, "mln toBack"+toBack);
 
     DisplayMetrics metrics = cordova.getActivity().getResources().getDisplayMetrics();
     // offset
@@ -272,7 +271,6 @@ public class CameraPreview extends CordovaPlugin implements CameraActivity.Camer
     cordova.getActivity().runOnUiThread(new Runnable() {
       @Override
       public void run() {
-        Log.d(TAG, "mln log from thread");
 
 
         //create or update the layout params for the container view
@@ -285,23 +283,22 @@ public class CameraPreview extends CordovaPlugin implements CameraActivity.Camer
           cordova.getActivity().addContentView(containerView, containerLayoutParams);
         }
         //display camera bellow the webview
-    Log.d(TAG, "mln Camera z:"+containerView.getTranslationZ());
-    Log.d(TAG, "mln webview z:"+((ViewGroup)webView.getView()).getTranslationZ());
-    Log.d(TAG, "mln Camera elev:"+containerView.getElevation());
-    Log.d(TAG, "mln webview elev:"+((ViewGroup)webView.getView()).getElevation());
         if(toBack){
 
-          webView.getView().setBackgroundColor(0xff00ffff); // TODO use clear not green
+          webView.getView().setBackgroundColor(0x00000000);
+
+          //fix restoring android layout when using toBack option
           webViewParent = webView.getView().getParent();
-          //((ViewGroup)webViewParent.getView()).setBackgroundColor(0xff000000);
-          ((ViewGroup)webView.getView()).bringToFront(); // Doesn't work, camera still in front of webview
-          ((ViewGroup)webViewParent).invalidate(); // second part
-          ((ViewGroup)webViewParent).requestLayout(); // third part
-          // ((ViewGroup)webView.getView()).setTranslationZ(4.0f);
-    Log.d(TAG, "mlntoBack Camera z:"+containerView.getTranslationZ());
-    Log.d(TAG, "mlntoBack webview z:"+((ViewGroup)webView.getView()).getTranslationZ());
-    Log.d(TAG, "mlntoBack Camera elev:"+containerView.getElevation());
-    Log.d(TAG, "mlntoBack webview elev:"+((ViewGroup)webView.getView()).getElevation());
+          ((ViewGroup)webViewParent).removeView(webView.getView());
+          ((ViewGroup)containerView.getParent()).addView(webView.getView(), 0);
+          ((ViewGroup)webView.getView()).bringToFront();
+
+          // Mln's attempt
+          // webViewParent = webView.getView().getParent();
+          // ((ViewGroup)webViewParent.getView()).setBackgroundColor(0xffff0000); // TODO use black and then clear onstop DOESNT WORK
+          // ((ViewGroup)webView.getView()).bringToFront(); // SOESNT WORK, camera still in front of webview
+          // ((ViewGroup)webViewParent).invalidate(); // second part
+          // ((ViewGroup)webViewParent).requestLayout(); // third part
 
 
         }else{
@@ -309,10 +306,6 @@ public class CameraPreview extends CordovaPlugin implements CameraActivity.Camer
           //set camera back to front
           containerView.setAlpha(opacity);
           containerView.bringToFront();
-          Log.d(TAG, "mlntoFront Camera z:"+containerView.getTranslationZ());
-          Log.d(TAG, "mlntoFront webview z:"+((ViewGroup)webView.getView()).getTranslationZ());
-          Log.d(TAG, "mlntoFront Camera elev:"+containerView.getElevation());
-          Log.d(TAG, "mlntoFront webview elev:"+((ViewGroup)webView.getView()).getElevation());
 
         }
 
@@ -329,19 +322,12 @@ public class CameraPreview extends CordovaPlugin implements CameraActivity.Camer
 
   public void onCameraStarted() {
     Log.d(TAG, "mln Camera started");
-    FrameLayout containerView = (FrameLayout)cordova.getActivity().findViewById(containerViewId);
-    Log.d(TAG, "mln onStart Camera z:"+containerView.getTranslationZ());
-    Log.d(TAG, "mln onStart webview z:"+((ViewGroup)webView.getView()).getTranslationZ());
-    Log.d(TAG, "mln onStart Camera elev:"+containerView.getElevation());
-    Log.d(TAG, "mln onStart webview elev:"+((ViewGroup)webView.getView()).getElevation());
-    ((ViewGroup)webView.getView()).setTranslationZ(6.0f);
-    Log.d(TAG, "mln onStartag Camera z:"+containerView.getTranslationZ());
-    Log.d(TAG, "mln onStartag webview z:"+((ViewGroup)webView.getView()).getTranslationZ());
-    Log.d(TAG, "mln onStartag Camera elev:"+containerView.getElevation());
-    Log.d(TAG, "mln onStartag webview elev:"+((ViewGroup)webView.getView()).getElevation());
 
+          // Mln's attempt
     // if (fragment.toBack) {
     //   ((ViewGroup)webView.getView()).bringToFront(); // Wait until after the camera has moved itself to the front onStarting
+    //   ((ViewGroup)webViewParent).invalidate(); // second part
+    //   ((ViewGroup)webViewParent).requestLayout(); // third part
     // }
 
     PluginResult pluginResult = new PluginResult(PluginResult.Status.OK, "Camera started");
