@@ -37,7 +37,6 @@
   }
 
   GLKView *view = (GLKView *)self.view;
-  view.backgroundColor = [UIColor cyanColor];
   view.context = self.context;
   view.drawableDepthFormat = GLKViewDrawableDepthFormat24;
   view.contentMode = UIViewContentModeScaleToFill;
