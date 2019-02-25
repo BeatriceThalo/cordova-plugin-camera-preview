@@ -291,8 +291,6 @@ public class CameraPreview extends CordovaPlugin implements CameraActivity.Camer
           // ((ViewGroup)webView.getView()).invalidate(); // second part
           // webView.getView().bringToFront();
           // webView.getView().invalidate();
-          webView.bringToFront();
-          webView.invalidate();
           // ViewCompat.setTranslationZ(webView.getView(), 1.0);
           // ViewCompat.setTranslationZ(webView, 1.0);
           // ViewCompat.setTranslationZ(containerView, 0.0);
@@ -318,6 +316,10 @@ public class CameraPreview extends CordovaPlugin implements CameraActivity.Camer
 
   public void onCameraStarted() {
     Log.d(TAG, "Camera started");
+
+    if (fragment.toBack) {
+      ((ViewGroup)webView.getView()).bringToFront(); // Wait until after the camera has moved itself to the front onStarting
+    }
 
     PluginResult pluginResult = new PluginResult(PluginResult.Status.OK, "Camera started");
     pluginResult.setKeepCallback(true);
