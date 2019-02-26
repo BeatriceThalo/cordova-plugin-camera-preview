@@ -289,7 +289,8 @@ public class CameraPreview extends CordovaPlugin implements CameraActivity.Camer
           ((ViewGroup)webViewParent).removeView(webView.getView());
           ((ViewGroup)containerView.getParent()).addView(webView.getView(), 0);
           ((ViewGroup)webView.getView()).bringToFront();
-          cordova.getActivity().getWindow().getDecorView().setBackgroundColor(0xff000000);
+          ((ViewGroup)containerView.getParent()).setBackgroundColor(0xffff0000);
+          containerView.setBackgroundColor(0xff00ff00);
 
         }else{
 
@@ -843,7 +844,6 @@ public class CameraPreview extends CordovaPlugin implements CameraActivity.Camer
       cordova.getActivity().runOnUiThread(new Runnable() {
         @Override
         public void run() {
-          cordova.getActivity().getWindow().getDecorView().setBackgroundColor(0x00000000);
           ((ViewGroup)webView.getView().getParent()).removeView(webView.getView());
           ((ViewGroup)webViewParent).addView(webView.getView(), 0);
           ((ViewGroup)webView.getView()).bringToFront();
