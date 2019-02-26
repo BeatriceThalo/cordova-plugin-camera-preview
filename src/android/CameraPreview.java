@@ -289,8 +289,7 @@ public class CameraPreview extends CordovaPlugin implements CameraActivity.Camer
           ((ViewGroup)webViewParent).removeView(webView.getView());
           ((ViewGroup)containerView.getParent()).addView(webView.getView(), 0);
           ((ViewGroup)webView.getView()).bringToFront();
-          ((ViewGroup)containerView.getParent()).setBackgroundColor(0xffff0000);
-          containerView.setBackgroundColor(0xff00ff00);
+          containerView.setBackgroundColor(0xff000000);
 
         }else{
 
@@ -838,6 +837,8 @@ public class CameraPreview extends CordovaPlugin implements CameraActivity.Camer
   }
 
   private boolean stopCamera(CallbackContext callbackContext) {
+    FrameLayout containerView = (FrameLayout)cordova.getActivity().findViewById(containerViewId);
+    containerView.setBackgroundColor(0x00000000);
 
     if(webViewParent != null) {
       //((ViewGroup)webViewParent.getView()).setBackgroundColor(0xff000000);
